@@ -79,3 +79,22 @@ function printBookDetails(book: Book): Book {
   console.log(book);
   return book;
 }
+
+// * Get unique values of 2 arrays
+type Arr = any[];
+function getUniqueValues(arr1: Arr, arr2: Arr): Arr {
+  // return [...new Set([...arr1, ...arr2])];
+  const commonValues = [...arr1.filter((value) => arr2.includes(value))];
+  console.log(commonValues);
+  const unionValues = [...arr1, ...arr2];
+  console.log(unionValues);
+  const uniqueValues = [
+    ...unionValues.filter((value) => !commonValues.includes(value)),
+  ];
+  return uniqueValues;
+}
+
+// ? this should be removed before submission
+// const arr1 = [1, 2, 3, 4];
+// const arr2 = [3, 4, 5, 6];
+// console.log(getUniqueValues(arr1, arr2));
