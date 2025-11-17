@@ -62,15 +62,18 @@ function printBookDetails(book: Book): string {
 type Arr = any[];
 function getUniqueValues(arr1: Arr, arr2: Arr): Arr {
   const result: Arr = [];
-  const secondArr = arr2;
+  const secondArr = [];
+  for (let i = 0; i < arr2.length; i++) {
+    secondArr.push(arr2[i]);
+  }
   for (let i = 0; i < arr1.length; i++) {
     result.push(arr1[i]);
   }
   const common = [];
-  for (let i = 0; i < arr2.length; i++) {
+  for (let i = 0; i < secondArr.length; i++) {
     for (let j = 0; j < result.length; j++) {
-      if (result[j] === arr2[i]) {
-        common.push(arr2[i]);
+      if (result[j] === secondArr[i]) {
+        common.push(secondArr[i]);
         break;
       }
       continue;
@@ -79,17 +82,12 @@ function getUniqueValues(arr1: Arr, arr2: Arr): Arr {
   for (let i = 0; i < common.length; i++) {
     secondArr.splice(secondArr.indexOf(common[i]), 1);
   }
-
-  for (let i = 0; i < arr2.length; i++) {
-    result.push(arr2[i]);
+  for (let i = 0; i < secondArr.length; i++) {
+    result.push(secondArr[i]);
   }
 
   return result;
 }
-// getUniqueValues([1, 2, 3, 4, 5], [3, 4, 5, 6, 7]);
-const array1 = [1, 2, 3, 4, 5];
-const array2 = [3, 4, 5, 6, 7];
-console.log(getUniqueValues(array1, array2));
 
 function calculateTotalPrice(
   items: { name: string; price: number; quantity: number; discount?: number }[]
