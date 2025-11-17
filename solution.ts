@@ -80,14 +80,12 @@ function printBookDetails(book: Book): Book {
   return book;
 }
 
-// * Get unique values of 2 arrays
+// ? the requirements have to be rechecked
+// * Get unique values of 2 arrays - 7. gcd3i48nb
 type Arr = any[];
 function getUniqueValues(arr1: Arr, arr2: Arr): Arr {
-  // return [...new Set([...arr1, ...arr2])];
   const commonValues = [...arr1.filter((value) => arr2.includes(value))];
-  console.log(commonValues);
   const unionValues = [...arr1, ...arr2];
-  console.log(unionValues);
   const uniqueValues = [
     ...unionValues.filter((value) => !commonValues.includes(value)),
   ];
@@ -98,3 +96,26 @@ function getUniqueValues(arr1: Arr, arr2: Arr): Arr {
 // const arr1 = [1, 2, 3, 4];
 // const arr2 = [3, 4, 5, 6];
 // console.log(getUniqueValues(arr1, arr2));
+
+function calculateTotalPrice(
+  items: { name: string; price: number; quantity: number; discount?: number }[]
+): number {
+  let totalPrice = 0;
+  items.map((item) => {
+    if (item.discount) {
+      const price = item.price * item.quantity;
+      const discounted = price * ((100 - item.discount) / 100);
+      totalPrice += discounted;
+    } else {
+      totalPrice += item.price * item.quantity;
+    }
+  });
+  return totalPrice;
+}
+const products = [
+  { name: 'Pen', price: 10, quantity: 2 },
+  { name: 'Notebook', price: 25, quantity: 3, discount: 10 },
+  { name: 'Bag', price: 50, quantity: 1, discount: 20 },
+];
+
+console.log(calculateTotalPrice(products));
