@@ -1,4 +1,3 @@
-// * Format value - 1
 function formatValue(
   value: string | number | boolean
 ): string | number | boolean {
@@ -11,16 +10,14 @@ function formatValue(
   }
 }
 
-// * Get length - 2
-// ? Not finished as the requirement
-// TODO I have to add guard for each type of Array
-// TODO I have to finish as the requirement
 function getLength(value: string | any[]): number {
-  return value.length;
+  if (Array.isArray(value)) {
+    return value.length;
+  } else {
+    return value.length;
+  }
 }
 
-// * Person Class - 3
-// ? Have to recheck the requirements
 class Person {
   name: string;
   age: number;
@@ -33,8 +30,6 @@ class Person {
   }
 }
 
-// * Filter by rating - 4
-// ? have to recheck the requirements
 function filterByRating(
   items: { title: string; rating: number }[]
 ): { title: string; rating: number }[] {
@@ -42,32 +37,13 @@ function filterByRating(
 
   return filteredArray;
 }
-// ? this should be removed before submission
-const books = [
-  { title: 'Book A', rating: 4.5 },
-  { title: 'Book B', rating: 3.2 },
-  { title: 'Book C', rating: 5.0 },
-];
 
-// console.log(filterByRating(books));
-// const person1 = new Person('John Doe', 30);
-// console.log(person1.getDetails());
-
-// * Filter active users - 5
 function filterActiveUsers(
   user: { id: number; name: string; email: string; isActive: boolean }[]
 ) {
   return user.filter((user) => user.isActive);
 }
-// ? this should be removed before submission
-// const users = [
-//   { id: 1, name: 'Rakib', email: 'rakib@example.com', isActive: true },
-//   { id: 2, name: 'Asha', email: 'asha@example.com', isActive: false },
-//   { id: 3, name: 'Rumi', email: 'rumi@example.com', isActive: true },
-// ];
-// console.log(filterActiveUsers(users));
 
-// * Book interface and print details - 6
 interface Book {
   title: string;
   author: string;
@@ -75,27 +51,18 @@ interface Book {
   isAvailable: boolean;
 }
 
-function printBookDetails(book: Book): Book {
-  console.log(book);
-  return book;
+function printBookDetails(book: Book): string {
+  const printable = `Title: ${book.title}, Author: ${book.author}, Published: ${
+    book.publishedYear
+  }, Available: ${book.isAvailable ? 'Yes' : 'No'} `;
+  console.log(printable);
+  return printable;
 }
 
-// ? the requirements have to be rechecked
-// * Get unique values of 2 arrays - 7. gcd3i48nb
 type Arr = any[];
 function getUniqueValues(arr1: Arr, arr2: Arr): Arr {
-  const commonValues = [...arr1.filter((value) => arr2.includes(value))];
-  const unionValues = [...arr1, ...arr2];
-  const uniqueValues = [
-    ...unionValues.filter((value) => !commonValues.includes(value)),
-  ];
-  return uniqueValues;
+  return [...arr1, ...arr2.filter((item) => !arr1.includes(item))];
 }
-
-// ? this should be removed before submission
-// const arr1 = [1, 2, 3, 4];
-// const arr2 = [3, 4, 5, 6];
-// console.log(getUniqueValues(arr1, arr2));
 
 function calculateTotalPrice(
   items: { name: string; price: number; quantity: number; discount?: number }[]
@@ -112,10 +79,3 @@ function calculateTotalPrice(
   });
   return totalPrice;
 }
-const products = [
-  { name: 'Pen', price: 10, quantity: 2 },
-  { name: 'Notebook', price: 25, quantity: 3, discount: 10 },
-  { name: 'Bag', price: 50, quantity: 1, discount: 20 },
-];
-
-console.log(calculateTotalPrice(products));
