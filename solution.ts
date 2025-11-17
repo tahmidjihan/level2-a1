@@ -66,3 +66,16 @@ function filterActiveUsers(
 //   { id: 3, name: 'Rumi', email: 'rumi@example.com', isActive: true },
 // ];
 // console.log(filterActiveUsers(users));
+
+// * Book interface and print details - 6
+interface Book {
+  title: string;
+  author: string;
+  publishedYear: number;
+  isAvailable: boolean;
+}
+
+function printBookDetails(book: Book): Book {
+  console.log(book);
+  return book;
+}
