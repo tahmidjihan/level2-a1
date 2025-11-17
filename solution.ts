@@ -40,7 +40,7 @@ function filterByRating(
 
 function filterActiveUsers(
   user: { id: number; name: string; email: string; isActive: boolean }[]
-) {
+): { id: number; name: string; email: string; isActive: boolean }[] {
   return user.filter((user) => user.isActive);
 }
 
@@ -54,15 +54,42 @@ interface Book {
 function printBookDetails(book: Book): string {
   const printable = `Title: ${book.title}, Author: ${book.author}, Published: ${
     book.publishedYear
-  }, Available: ${book.isAvailable ? 'Yes' : 'No'} `;
+  }, Available: ${book.isAvailable ? 'Yes' : 'No'}`;
   console.log(printable);
   return printable;
 }
 
 type Arr = any[];
 function getUniqueValues(arr1: Arr, arr2: Arr): Arr {
-  return [...arr1, ...arr2.filter((item) => !arr1.includes(item))];
+  const result: Arr = [];
+  const secondArr = arr2;
+  for (let i = 0; i < arr1.length; i++) {
+    result.push(arr1[i]);
+  }
+  const common = [];
+  for (let i = 0; i < arr2.length; i++) {
+    for (let j = 0; j < result.length; j++) {
+      if (result[j] === arr2[i]) {
+        common.push(arr2[i]);
+        break;
+      }
+      continue;
+    }
+  }
+  for (let i = 0; i < common.length; i++) {
+    secondArr.splice(secondArr.indexOf(common[i]), 1);
+  }
+
+  for (let i = 0; i < arr2.length; i++) {
+    result.push(arr2[i]);
+  }
+
+  return result;
 }
+// getUniqueValues([1, 2, 3, 4, 5], [3, 4, 5, 6, 7]);
+const array1 = [1, 2, 3, 4, 5];
+const array2 = [3, 4, 5, 6, 7];
+console.log(getUniqueValues(array1, array2));
 
 function calculateTotalPrice(
   items: { name: string; price: number; quantity: number; discount?: number }[]
