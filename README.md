@@ -29,7 +29,7 @@
 
 ## Interfaces
 
-`Interface` এর মাধ্যমে datatype শুধু object shape এ store করা যায়।
+`Interface` মূলত object-এর structure define করতে ব্যবহার হয়, তবে function signature বা array-like structure ও describe করা যায়।
 
 ```
 interface MyPerson {

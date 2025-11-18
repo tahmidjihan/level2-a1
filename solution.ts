@@ -58,52 +58,62 @@ function printBookDetails(book: Book): string {
   console.log(printable);
   return printable;
 }
-type Arr = any[];
-function getUniqueValues(arr1: Arr, arr2: Arr): Arr {
-  const result: Arr = [];
-  const pushInResult = (value: any): Arr => {
-    const newResult = (result[result.length] = value);
-    return newResult;
-  };
-  const secondArr: Arr = [];
-  const pushInSecond = (value: any): Arr => {
-    const newArray = (secondArr[secondArr.length] = value);
-    return newArray;
-  };
-  const common: Arr = [];
-  const pushInCommon = (value: any): Arr => {
-    const newCommon = (common[common.length] = value);
 
-    return newCommon;
+type Arr = number[];
+interface Array<T> {
+  pushData: (value: T) => void;
+  removeData: (value: T) => void;
+}
+function getUniqueValues(arr1: Arr, arr2: Arr): Arr {
+  Array.prototype.pushData = function (value: any): any {
+    this[this.length] = value;
+    return this;
   };
-  for (let i = 0; i < arr2.length; i++) {
-    pushInSecond(arr2[i]);
-  }
+  Array.prototype.removeData = function (value: any): any {
+    let array = [];
+    for (let i = 0; i < this.length; i++) {
+      if (this[i] === value) {
+        continue;
+      } else {
+        // this[this.length] = value;
+        array.push(this[i]);
+      }
+    }
+    this.length = 0;
+    for (let i = 0; i < array.length; i++) {
+      this[i] = array[i];
+    }
+    return this;
+  };
+  const result: Arr = [] as unknown as Arr;
+  const secondArr: Arr = [] as unknown as Arr;
+  const common: Arr = [] as unknown as Arr;
+
   for (let i = 0; i < arr1.length; i++) {
-    pushInResult(arr1[i]);
+    result.pushData(arr1[i]);
+  }
+  for (let i = 0; i < arr2.length; i++) {
+    secondArr.pushData(arr2[i]);
   }
 
   for (let i = 0; i < secondArr.length; i++) {
     for (let j = 0; j < result.length; j++) {
       if (result[j] === secondArr[i]) {
-        pushInCommon(secondArr[i]);
+        common.pushData(secondArr[i]);
         break;
       }
       continue;
     }
   }
   for (let i = 0; i < common.length; i++) {
-    secondArr.splice(secondArr.indexOf(common[i]), 1);
+    secondArr.removeData(common[i]);
   }
   for (let i = 0; i < secondArr.length; i++) {
-    // result.push(secondArr[i]);    pushInResult(secondArr[i]);
+    result.pushData(secondArr[i]);
   }
 
   return result;
 }
-const array1 = [1, 2, 3, 4, 5];
-const array2 = [3, 4, 5, 6, 7];
-console.log(getUniqueValues(array1, array2));
 
 function calculateTotalPrice(
   items: { name: string; price: number; quantity: number; discount?: number }[]
