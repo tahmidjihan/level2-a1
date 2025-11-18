@@ -18,24 +18,24 @@
 
 `type` এর মাধ্যমে primitive ও non-primitive data store করা যায় ।
 
-```
- type MyText = string
- type MyPerson = {
-    name : string,
-     age: number,
-    isDeveloper: boolean
- }
+```ts
+type MyText = string;
+type MyPerson = {
+  name: string;
+  age: number;
+  isDeveloper: boolean;
+};
 ```
 
 ## Interfaces
 
 `Interface` মূলত object-এর structure define করতে ব্যবহার হয়, তবে function signature বা array-like structure ও describe করা যায়।
 
-```
+```ts
 interface MyPerson {
-    name : string ,
-    age: number,
-    isDeveloper: boolean
+  name: string;
+  age: number;
+  isDeveloper: boolean;
 }
 ```
 
@@ -56,13 +56,16 @@ Typescript এ কিছু special data types রয়েছে তার মধ�
 
 `any` data type মূলত ব্যাবহার হয় যখন কোন `function` বা `object` বা যে কোন non-primitive data এর reference যে কোন data type হতে পারে।
 যেমন ধরি, একটা function কোন param নিয়ে সেটার type check করে তা return করে -
-function checkValueType(value : any){
-if (typeof value !== 'object') {
-return 'Not an object'
-} else{
-return 'It is an object'
+
+```ts
+function checkValueType(value: any) {
+  if (typeof value !== 'object') {
+    return 'Not an object';
+  } else {
+    return 'It is an object';
+  }
 }
-}
+```
 
 ## Unknown
 
@@ -70,15 +73,14 @@ return 'It is an object'
 যেমন ধরি , আমরা কোন API থেকে fetch request করে dogData আনব। আমরা জানি না সেই data টি `object` নাকি `array` বা অন্য কোন datatype তখন আমরা uknown ব্যাবহার
 করতে পারি ।
 
-```
-function getDogData(data:unknown) {
-    if(typeof data == 'object'){
-        // conditions
-    } else{
-    // অন্য conditions
-    }
+```ts
+function getDogData(data: unknown) {
+  if (typeof data == 'object') {
+    // conditions
+  } else {
+    // other conditions
+  }
 }
-
 ```
 
 ## Never
@@ -86,8 +88,8 @@ function getDogData(data:unknown) {
 `never` মূলত ব্যাবহার হয় কোন function যখন কোন কিছুই return করে না এবং তা শুধু error throw করার জন্য কিংবা infinite loop handle করার জন্য ব্যাবহার হয়।
 যেমন ধরি , কোন user আমাদের website এর থেকে কোন কিছু কিনল কিন্তু তার purchase successful হইনি। সেই error throw করা হল।
 
-```
-function throwPurchaseError (): never {
-    throw new Error('Purchase Failed ')
+```ts
+function throwPurchaseError(): never {
+  throw new Error('Purchase Failed ');
 }
 ```
