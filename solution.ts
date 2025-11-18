@@ -58,22 +58,35 @@ function printBookDetails(book: Book): string {
   console.log(printable);
   return printable;
 }
-
 type Arr = any[];
 function getUniqueValues(arr1: Arr, arr2: Arr): Arr {
   const result: Arr = [];
-  const secondArr = [];
+  const pushInResult = (value: any): Arr => {
+    const newResult = (result[result.length] = value);
+    return newResult;
+  };
+  const secondArr: Arr = [];
+  const pushInSecond = (value: any): Arr => {
+    const newArray = (secondArr[secondArr.length] = value);
+    return newArray;
+  };
+  const common: Arr = [];
+  const pushInCommon = (value: any): Arr => {
+    const newCommon = (common[common.length] = value);
+
+    return newCommon;
+  };
   for (let i = 0; i < arr2.length; i++) {
-    secondArr.push(arr2[i]);
+    pushInSecond(arr2[i]);
   }
   for (let i = 0; i < arr1.length; i++) {
-    result.push(arr1[i]);
+    pushInResult(arr1[i]);
   }
-  const common = [];
+
   for (let i = 0; i < secondArr.length; i++) {
     for (let j = 0; j < result.length; j++) {
       if (result[j] === secondArr[i]) {
-        common.push(secondArr[i]);
+        pushInCommon(secondArr[i]);
         break;
       }
       continue;
@@ -83,11 +96,14 @@ function getUniqueValues(arr1: Arr, arr2: Arr): Arr {
     secondArr.splice(secondArr.indexOf(common[i]), 1);
   }
   for (let i = 0; i < secondArr.length; i++) {
-    result.push(secondArr[i]);
+    // result.push(secondArr[i]);    pushInResult(secondArr[i]);
   }
 
   return result;
 }
+const array1 = [1, 2, 3, 4, 5];
+const array2 = [3, 4, 5, 6, 7];
+console.log(getUniqueValues(array1, array2));
 
 function calculateTotalPrice(
   items: { name: string; price: number; quantity: number; discount?: number }[]
